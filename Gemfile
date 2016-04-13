@@ -15,7 +15,7 @@ source 'https://rubygems.org'
  end
 
  group :development, :test do
-   gem 'rspec-rails', '~>3.0'
+   gem 'rspec-rails', '~>3.4.2'
  end
 
  # Use SCSS for stylesheets
@@ -32,4 +32,4 @@ source 'https://rubygems.org'
  gem 'bootstrap-sass'
 
  gem 'devise'
- 
+ gem 'figaro', '1.0'
