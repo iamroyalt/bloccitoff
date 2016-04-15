@@ -1,2 +1,14 @@
 <h1>Blocitoff To Do List</h1>
- <%= @user.email %><p>You are ready to start your to-do list!</p>
+ <%= @user.first_name %><p>, you are ready to start your to-do list!</p>
+
+ <div class = "row">
+   <div class="col-md-8">
+     <div class="media">
+       <div class ="new-item">
+         <%= render partial: "items/form", locals: {user: @user, item: Item.new} %>
+         <% end %>
+       </div>
+     </div>
+   </div>
+ </div>
+<% end %>
