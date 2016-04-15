@@ -4,5 +4,5 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :show, :create, :update]
 
-  root to: "welcome#index"
+  root to: "users#show"
 end
