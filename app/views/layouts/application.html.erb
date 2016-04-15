@@ -6,23 +6,33 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+   <body>
 <!-- check if user is signed in -->
-  <% if user_signed_in? %>
-     Signed in as: <strong><%= current_user.email %></strong> |
-     <%= link_to 'Edit Profile', edit_user_registration_path, :class => 'navbar-link' %>
-     <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %><br>
+     <header class="navbar navbar-default navbar-fixed-top">
+       <div class="container">
+         <div class="nav-title">
+         <% if user_signed_in? %>
+           Signed in as: <strong><%= current_user.email %></strong>
+        </div>
+        <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to 'Edit Profile', edit_user_registration_path, :class => 'navbar-link' %></li>
+          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
+        </ul>
    <% else %>
 <!-- display sign up and sign in buttons if user is not logged in -->
-     <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link'  %> -
-     <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link'  %>
+    <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link'%></li>
+      <li><%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %></li>
    <% end %>
+ </div>
+ </nav>
+<div class="container">
+  <% if notice %><div class="alert alert-info"><%= flash[:notice] %></div><% end %>
+  <% if alert %><div class="alert alert-warning"><%= flash[:alert] %></div><% end %>
+  <%= flash[:error] %>
 
-   <p class="notice"><%= flash[:notice] %></p>
-   <p class="alert"><%= flash[:alert] %></p>
-   <%= flash[:error] %></p>
-
-<%= yield %>
-
+  <%= yield %>
+</div>
 </body>
 </html>
