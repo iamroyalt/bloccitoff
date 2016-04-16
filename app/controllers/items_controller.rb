@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    @item = @user.items.new(todo_params)
+    @item = @user.items.build(todo_params)
     @item.user = current_user
 
     if @item.save
@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
   private
 
   def todo_params
-    params.require(:item).permit(:description)
+    params.require(:item).permit(:name)
   end
 
 end
