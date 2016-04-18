@@ -1,35 +1,35 @@
 require 'rails_helper'
+require 'faker'
 
 RSpec.describe ItemsController, type: :controller do
-  let(:my_item) {create(:item, user: current_user)}
-  let(:unconfirmed_user)
 
-  context "current_user doing CRUD on an item" do
-    before do
-      sign_in current_user
+  let(:my_user) { create(:user) }
+  let(:my_item) { create(:item, user: my_user) }
+
+  context "signed in user doing CRUD on an item" do
+  before do
+    my_user.confirm
+    sign_in my_user
+  end
+
+
+  describe "POST item create" do
+    it "increases the number of Item by 1" do
+      expect {post :create, item: {name: Faker::Company.catch_phrase}}.to change(Item,:count).by(1)
     end
 
-    describe "item create" do
-      it "increase the number of items by 1" do
-        expect {post :create, format: :js, user_id: current_user.id, item: {name:"test item"} }.to change(Item, :count).by(1)
-      end
-
-      it "returns http redirect" do
-        post :create, user_id: current_user.id, item: {name: "test item"}
-        expect(response).to have_http_status(:success)
-      end
-    end
-
-    describe "DELETE destroy" do
-      it "deletes the item" do
-        delete :destroy, format: :js, user_id: current_user.id, id: my_item.id
-        expect(count).to eq 0
-      end
-
-      it "returns http success" do
-        delete :destroy, format: :js, user_id: current_user.id, id: my_item.id
-        expect(response).to have_http_status(:success)
-      end
+    it "redirects to the new item" do
+      post :create, item: {name: Faker::Company.catch_phrase}
+      expect(response).to have_http_status(:success)
     end
   end
+
+  describe "DELETE destroy" do
+    it "deletes the item" do
+      delete :destroy, format: :js, user_id: my_user.id, id: my_item.id
+      count = Item.where({id: my_item.id}).size
+      expect(count).to eq 0
+    end
+  end
+end
 end
