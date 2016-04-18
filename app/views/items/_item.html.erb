@@ -1,7 +1,6 @@
-<div class="media">
-  <div class="media-body">
-    <small>
-      <li><%= item.name %></li>
-    </small>
-  </div>
+<div class="row">
+<%= content_tag :li, id: "item-#{item.id}" do %>
+  <%= item.name %>
+  <%= link_to "",[current_user,item] , method: :delete, remote: true, class: 'glyphicon glyphicon-ok' %>
+<% end %>
 </div>

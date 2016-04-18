@@ -14,6 +14,22 @@ class ItemsController < ApplicationController
       redirect_to current_user
     end
   end
+#add destroy action
+  def destroy
+    @user = current_user
+    @item = @user.items.find(params[:id])
+
+    if @item.destroy
+      flash[:notice] = "Marked as complete."
+    else
+      flash[:error] = "Error"
+    end
+#add AJAX
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
 
   private
 
