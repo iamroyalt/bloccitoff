@@ -12,7 +12,7 @@ RSpec.describe ItemsController, type: :controller do
     sign_in my_user
   end
 
-
+#added user_id route and achieved passing tests. 
   describe "POST item create" do
     it "increases the number of Item by 1" do
       expect {post :create, user_id: my_user.id, item: {name: Faker::Company.catch_phrase}}.to change(Item,:count).by(1)
