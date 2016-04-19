@@ -12,10 +12,11 @@ end
 users = User.all
 
 17.times do
-  Item.create!(
+  i = Item.create!(
     user: users.sample,
     name: Faker::Company.catch_phrase
-  )
+    )
+  i.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
 end
 
 items = Item.all
